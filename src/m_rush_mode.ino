@@ -1,5 +1,6 @@
 int rush_mode_index = 2;
 
+// main mode controller, mode states changing 
 void rush_mode_control()
 {
   if(active_mode[rush_mode_index]){
@@ -8,6 +9,7 @@ void rush_mode_control()
   }
 }
 
+// mode reset and move back to menu
 void rush_mode_back_to_menu()
 {
   reset_top_screen();

@@ -1,5 +1,6 @@
 int flags_mode_index = 1;
 
+// main mode controller, mode states changing 
 void flags_mode_control()
 {
   if(active_mode[flags_mode_index]){
@@ -8,6 +9,7 @@ void flags_mode_control()
   }
 }
 
+// mode reset and move back to menu
 void flags_mode_back_to_menu()
 {
   reset_top_screen();

@@ -1,3 +1,4 @@
+// basic init diplay
 void display_init()
 {
   lcd.begin();
@@ -16,18 +17,6 @@ void display_on_lower_screen(String text)
   lcd.print(text);
 }
 
-void show_menu_on_position(int displayed_top_record)
-{
-  int number_of_mode = displayed_top_record + 1;
-  if(displayed_top_record + 1 < number_of_modes){
-    String number_of_mode_top = String(number_of_mode);
-    String number_of_mode_lower = String(number_of_mode + 1);
-    
-    display_on_top_screen(number_of_mode_top + " " + mode_names[displayed_top_record]);
-    display_on_lower_screen(number_of_mode_lower + " " +mode_names[displayed_top_record + 1]);
-  }
-}
-
 void reset_top_screen()
 {
   display_on_top_screen(blank_line_message);
@@ -38,6 +27,7 @@ void reset_lower_screen()
   display_on_lower_screen(blank_line_message);
 }
 
+// text is displayed on top of screen and delayed for time set as parameter
 void show_message_for_time(String text, int time_in_ms)
 {
   reset_top_screen();
@@ -45,6 +35,7 @@ void show_message_for_time(String text, int time_in_ms)
   delay(time_in_ms);
 }
 
+// intro shows name of chosen mode for several seconds  
 void mode_intro(int mode_number)
 {
   reset_top_screen();
@@ -52,6 +43,7 @@ void mode_intro(int mode_number)
   show_message_for_time(mode_names[mode_number - 1],3000);
 }
 
+// shows welcome screen for several seconds
 void welcome_screen()
 {
   show_message_for_time(welcome_message, 3000);

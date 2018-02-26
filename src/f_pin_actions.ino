@@ -1,3 +1,7 @@
+// basic method for keypad listening and pin building click by click
+// numbers are used for pin, sign # for pin confirmation (when pin has required length),
+// sign * has no functionality
+
 bool pin_setter(String &pin_place)
 {
   char key = keypad.getKey();
@@ -12,7 +16,7 @@ bool pin_setter(String &pin_place)
     }
     
     actual_pin_point++;
-    if(actual_pin_point == 4){
+    if(actual_pin_point == pin_length){
       actual_pin_point = 0;
       pin_reset(pin_place);
     }
@@ -22,11 +26,14 @@ bool pin_setter(String &pin_place)
   return false;
 }
 
+// set ogirin pin
 bool set_origin_pin()
 {
   return pin_setter(pin);
 }
 
+// set guessing pin and compare with origin after pin confirmation,
+// return true if both same, false if not same or if guessed pin has not required length
 bool set_try_pin()
 {
   if(pin_setter(pin_try)){
@@ -39,6 +46,7 @@ bool set_try_pin()
   return false;
 }
 
+// reset pin to empty string (spaces- necesarry for position pin editing)
 void pin_reset(String &pin_place)
 {
   pin_place[0] = ' ';
@@ -47,6 +55,7 @@ void pin_reset(String &pin_place)
   pin_place[3] = ' ';
 }
 
+// reset both pin and guessed pin
 void reset_pins()
 {
   actual_pin_point = -1;
@@ -54,11 +63,13 @@ void reset_pins()
   pin_reset(pin_try);
 }
 
+// get origin pin
 String get_pin()
 {
   return pin;
 }
 
+// get guessed pin
 String get_pin_try()
 {
   return pin_try;

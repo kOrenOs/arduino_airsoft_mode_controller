@@ -1,5 +1,6 @@
 int bomb_mode_index = 0;
 
+// main mode controller, mode states changing 
 void bomb_mode_control()
 {
   if(active_mode[bomb_mode_index]){
@@ -19,6 +20,7 @@ void bomb_mode_control()
   }
 }
 
+// mode state
 void bomb_pin_set()
 {
   display_on_top_screen(bomb_mode_set_pin_message);
@@ -30,6 +32,7 @@ void bomb_pin_set()
   }
 }
 
+// mode state
 void bomb_timer_set()
 {
   display_on_top_screen(bomb_mode_set_timer_message);
@@ -45,6 +48,7 @@ void bomb_timer_set()
   }
 }
 
+// mode state
 void bomb_active()
 {
   display_on_top_screen(bomb_mode_time_to_explode_message);
@@ -62,6 +66,7 @@ void bomb_active()
   }
 }
 
+// mode state
 void bomb_explode()
 {
   display_on_lower_screen(get_countdown() + "  " + pin_try);
@@ -71,6 +76,7 @@ void bomb_explode()
   show_message_for_time(bomb_mesage_bomb_exploded_message, 7000);
 }
 
+// mode reset and move back to menu
 void bomb_mode_back_to_menu()
 {
   reset_top_screen();

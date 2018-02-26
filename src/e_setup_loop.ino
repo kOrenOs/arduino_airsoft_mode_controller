@@ -7,10 +7,11 @@ void setup()
 
 void loop()
 {
-  menu_control();
+  menu_control();                     //show menu
   mode_loop();
 }
 
+// looping all modes, just active one in use
 void mode_loop()
 {
   bomb_mode_control();

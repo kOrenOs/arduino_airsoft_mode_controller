@@ -1,12 +1,29 @@
+// main control point for menu, shows menu and wait for inputs
 void menu_control()
 {
   if(state_in_menu){
     show_menu_on_position(actual_displayed_top_menu_record);
-    keyboardListener();
+    keyboard_listener();
   }
 }
 
-void keyboardListener()
+void show_menu_on_position(int displayed_top_record)
+{
+  int number_of_mode = displayed_top_record + 1;
+  if(displayed_top_record + 1 < number_of_modes){
+    String number_of_mode_top = String(number_of_mode);
+    String number_of_mode_lower = String(number_of_mode + 1);
+    
+    display_on_top_screen(number_of_mode_top + " " + mode_names[displayed_top_record]);
+    display_on_lower_screen(number_of_mode_lower + " " +mode_names[displayed_top_record + 1]);
+  }
+}
+
+// listener for menu 
+// pressed number will choose mode
+// sign # moves menu up, if it is possible
+// sign * moves menu down, if it is possible
+void keyboard_listener()
 {
   char key = keypad.getKey();
   if (key != NO_KEY){
@@ -25,6 +42,7 @@ void keyboardListener()
   }
 }
 
+// change top menu record, if it is possible
 void go_down()
 {
   if(actual_displayed_top_menu_record + 2 < number_of_modes){
@@ -34,6 +52,7 @@ void go_down()
   }
 }
 
+// change top menu record, if it is possible
 void go_up()
 {
   if(actual_displayed_top_menu_record - 1 >= 0){
