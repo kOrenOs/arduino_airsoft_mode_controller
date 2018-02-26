@@ -1,4 +1,4 @@
-int rush_mode_index = 2;
+int rush_mode_index = get_index_of_mode("Rush");
 
 // main mode controller, mode states changing 
 void rush_mode_control()

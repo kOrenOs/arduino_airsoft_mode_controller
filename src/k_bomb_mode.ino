@@ -1,4 +1,4 @@
-int bomb_mode_index = 0;
+int bomb_mode_index = get_index_of_mode("Bomb");
 
 // main mode controller, mode states changing 
 void bomb_mode_control()

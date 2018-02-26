@@ -1,4 +1,4 @@
-int flags_mode_index = 1;
+int flags_mode_index = get_index_of_mode("Flags");
 
 // main mode controller, mode states changing 
 void flags_mode_control()
