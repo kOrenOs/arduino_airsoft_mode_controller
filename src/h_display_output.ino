@@ -51,3 +51,13 @@ void welcome_screen()
   reset_lower_screen();
 }
 
+void display_rotate_array_records(String text_array[], int array_size, int time_of_change)
+{
+  int active_index = ((millis() / 1000) % (array_size * time_of_change)) / time_of_change;
+  if(rotate_menu_active_index != active_index){
+    reset_lower_screen();
+    rotate_menu_active_index = active_index;
+  }
+  display_on_lower_screen(text_array[active_index]);
+}
+

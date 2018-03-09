@@ -1,6 +1,18 @@
-// main controller to set timer,
-// it is waiting to fill all necessary time units, then it will start countdown
+// main controller to set timer, ask to set time and then start countdown
 bool set_timer_mode()
+{
+  if(set_time_for_variable(timer)){
+    if(!bomb_countdown_started){
+      start_timer();
+    }
+    bomb_countdown_started = true;
+    return true;
+  }
+  
+  return false;
+}
+// waiting to fill all necessary time units and set variable for result in seconds
+bool set_time_for_variable(long &timer_variable)
 {
   if(!hours_set){
     set_hours();
@@ -11,15 +23,13 @@ bool set_timer_mode()
       if(!seconds_set){
         set_seconds();
       }else{
-        if(!bomb_countdown_started){
-          start_timer();
-        }
-        bomb_countdown_started = true;
+        compute_time(timer_variable);
+        reset_set_time_variables();
         return true;
       }
     }
   }
-  
+  compute_time(timer_variable);
   return false;
 }
 
@@ -61,7 +71,6 @@ void timer_changer(int &time_unit, bool &time_unit_checker, int unit_max_value)
     if(time_unit > unit_max_value){
       time_unit = 0;
     }
-    compute_time();
   }
 }
 
@@ -83,13 +92,13 @@ void move_units_for_change()
 }
 
 // compute total timer time in seconds
-void compute_time()
+void compute_time(long &timer_variable)
 {
-  timer = ((long)hours * 60 + minutes) * 60 + seconds;
+  timer_variable = ((long)hours * 60 + minutes) * 60 + seconds;
 }
 
 // return formatted time value from parameter (value should be in seconds)
-String timer_to_string(long timer_value)
+String timer_to_string(long timer_value, bool only_minutes_seconds)
 {
   if(timer_value < 0){
     timer_value = 0;
@@ -99,9 +108,11 @@ String timer_to_string(long timer_value)
   int hours = timer_value / 3600;
   int minutes = (timer_value % 3600) / 60;
   int seconds = timer_value % 60;
-  
-  formatted_timer = convert_int_to_char(hours);
-  formatted_timer += ":";
+
+  if(!only_minutes_seconds){
+    formatted_timer = convert_int_to_char(hours);
+    formatted_timer += ":";
+  }
   formatted_timer += convert_int_to_char(minutes);
   formatted_timer += ":";
   formatted_timer += convert_int_to_char(seconds);
@@ -144,13 +155,13 @@ bool timer_update()
 // get actual countdown time at the moment of method run
 long get_actual_timer_time()
 {
-  return timer - ((millis() - start_time)  / 1000);
+  return timer - get_time_difference_to_actual_time_in_seconds(start_time);
 }
 
 // get time of timer while timer setting up, it has blinking efect on active time unit
-String get_set_time()
+String get_set_time(long timer_variable)
 {
-  String formatted_timer = timer_to_string(timer);
+  String formatted_timer = timer_to_string(timer_variable, false);
   String for_blinking;
   
   if(!hours_set){
@@ -170,21 +181,34 @@ String get_set_time()
   return formatted_timer;
 }
 
+String get_set_timer_time()
+{
+   return get_set_time(timer);
+}
+
 // return formatted countdown string
 String get_countdown()
 {
-  return timer_to_string(get_actual_timer_time());
+  return timer_to_string(get_actual_timer_time(), false);
 }
 
 // reset all timer states
 void reset_timer_state()
 {
   reset_start_time_value();
-  
+  reset_set_time_variables();
+  bomb_countdown_started = false;
+}
+
+void reset_set_time_variables()
+{
   hours_set = false;
   minutes_set = false;
   seconds_set = false;
-  bomb_countdown_started = false;
+
+  hours = 0;
+  minutes = 0;
+  seconds = 0;
 }
 
 // returned text will be blank or visible, deponds on moduled total time by blink time parameter
@@ -208,5 +232,10 @@ String append_substring(String origin, String for_append, int from_position)
     origin[from_position + i] = for_append[i];
   }
   return origin;
+}
+
+long get_time_difference_to_actual_time_in_seconds(long difference_start_time)
+{
+  return (millis() - difference_start_time)  / 1000;
 }
 

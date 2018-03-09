@@ -37,11 +37,19 @@ bool set_origin_pin()
 bool set_try_pin()
 {
   if(pin_setter(pin_try)){
-    if(pin == pin_try){
+    if(compare_pins()){
       return true;
     }else{
       pin_reset(pin_try);
     }
+  }
+  return false;
+}
+
+bool compare_pins()
+{
+  if(pin == pin_try){
+    return true;
   }
   return false;
 }
@@ -60,6 +68,11 @@ void reset_pins()
 {
   actual_pin_point = -1;
   pin_reset(pin);
+  reset_try_pin();
+}
+
+void reset_try_pin()
+{
   pin_reset(pin_try);
 }
 
