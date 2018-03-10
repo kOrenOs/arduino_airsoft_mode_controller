@@ -7,6 +7,7 @@ int rotate_menu_active_index = -1;                          // moving menu activ
 bool bomb_set_pin_state = true;
 bool bomb_set_defusing_time = false;
 bool bomb_set_timer_state = false;
+bool bomb_prepared_state = false;
 bool bomb_active_state = false;
 
 // change this to add new mode
