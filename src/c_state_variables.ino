@@ -26,4 +26,3 @@ int get_index_of_mode(String mode_to_find)
   }
   return -1;
 }
-

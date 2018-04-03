@@ -3,7 +3,7 @@ int bomb_mode_index = get_index_of_mode("Bomb");
 // main mode controller, mode states changing 
 void bomb_mode_control()
 {
-  if(active_mode[bomb_mode_index]){
+  if(active_mode[bomb_mode_index]){   
     if(bomb_set_pin_state){
       bomb_pin_set();
     }else{
@@ -136,7 +136,7 @@ long defusing_in_process()
 void bomb_explode()
 {
   display_on_lower_screen(get_countdown() + "  " + pin_try);
-  one_continouse_sound(bomb_mode_explosion_message, 4000);
+  one_continouse_sound(bomb_mode_explosion_message, 10000);
   show_message_for_time(bomb_mode_bomb_exploded_message, 7000);
 }
 

@@ -16,10 +16,17 @@ char keys[rows][cols] =
   {'*','0','#'}};
 
 // connect to the row pinouts of the keypad
-byte row_pins[rows] = {6, 7, 8, 9}; 
+byte row_pins[rows] = {12, 11, 10, 9}; 
 
 // connect to the column pinouts of the keypad
-byte col_pins[cols] = {10, 11, 12}; 
+byte col_pins[cols] = {8, 7, 6}; 
 
 // keypad init
 Keypad keypad = Keypad( makeKeymap(keys), row_pins, col_pins, rows, cols );
+
+// active pin for speaker
+int speaker_activate_pin = 48;
+
+// buttons active pins
+int first_bomb_button_pin = 52;
+int second_bomb_button_pin = 50;

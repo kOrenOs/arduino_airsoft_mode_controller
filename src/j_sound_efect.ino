@@ -1,16 +1,16 @@
 void init_speaker()
 {
-  pinMode(2, OUTPUT);
+  pinMode(speaker_activate_pin, OUTPUT);
 }
 
 void turn_speaker_on()
 {
-  digitalWrite(2, HIGH);
+  digitalWrite(speaker_activate_pin, HIGH);
 }
 
 void turn_speaker_off()
 {
-  digitalWrite(2, LOW);
+  digitalWrite(speaker_activate_pin, LOW);
 }
 
 void one_continouse_sound(String message_while_sound, int time_of_sound)
